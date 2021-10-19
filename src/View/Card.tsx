@@ -5,10 +5,10 @@ import {ICard} from '../interface/Card';
 class Card extends Component<ICard> {
     render() {
         return (
-            <div key={this.props.id} className={'card '
+            <div className={'card '
                             + (this.props.isHidden ? 'card-hidden' : 'card-showed') + ' '
-                            + 'card-player-' + this.props.playerNumber}>
-                {this.props.cardValue}
+                            + 'card-player-' + this.props.ownerId}>
+                {this.props.type}
             </div>
         )
     }

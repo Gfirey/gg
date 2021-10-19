@@ -24,10 +24,16 @@
 }
 
 .player {
-    /*height: calc(var(--card-height) * 2 + 10px);*/
     display: flex;
     flex-direction: column;
     flex-shrink: 1;
     flex-grow: 1;
     max-width: 400px;
+    margin: 20px;
+}
+
+.playground {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }

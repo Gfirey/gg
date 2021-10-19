@@ -1,51 +1,33 @@
 import React from 'react';
 import './GameLoop.css';
-import Player from './View/Player';
-import {ICard} from './interface/Card';
+import {IBrain, IModel, IPlayer} from './interface/Card';
+import Board from './View/Board';
+import Brain from './Model/Brain';
 
 type GameLoopProps = {};
 type GameLoopState = {
     isInGame: boolean,
+    model: IModel;
 };
 
 class GameLoop extends React.Component<GameLoopProps, GameLoopState> {
-    private cards: ICard[];
+    private brain: IBrain;
 
     constructor(props: any) {
         super(props);
-        this.state = {isInGame: true};
-        this.startGame = this.startGame.bind(this);
-        this.cards = [
-            {
-                id: 1,
-                cardValue: 1,
-                playerNumber: 1,
-                inHand: true
-            },
-            {
-                id: 2,
-                cardValue: 2,
-                playerNumber: 2,
-                inHand: true
-            },
-            {
-                id: 3,
-                cardValue: 4,
-                playerNumber: 3,
-                inHand: false
-            },
-            {
-                id: 4,
-                cardValue: 7,
-                playerNumber: 4,
-                inHand: true
-            }
-        ];
-    }
+        this.brain = new Brain();
+        this.state = {
+            isInGame: true,
+            model: this.brain.getCurrentModel()
+        }
+    };
 
     startGame = () => {
-        this.setState({isInGame: true});
-    }
+        this.setState({
+            isInGame: true,
+            model: this.brain.getCurrentModel()
+        });
+    };
 
     render() {
         return (
@@ -53,7 +35,7 @@ class GameLoop extends React.Component<GameLoopProps, GameLoopState> {
                 <p className="GameTitle">&lt;GameTitle&gt;</p>
                 {!this.state.isInGame
                     ? <button onClick={this.startGame}>Начать игру</button>
-                    : <div><Player id={1} cards={this.cards}/></div>
+                    : <div><Board players={this.state.model.players}/></div>
                 }
             </div>
         );
