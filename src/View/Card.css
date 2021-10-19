@@ -1,0 +1,31 @@
+.card {
+    height: var(--card-height);
+    width: var(--card-width);
+    box-sizing: border-box;
+    border: 4px solid;
+
+}
+
+.card-player-1 {
+    border-color: var(--color1);
+    color: var(--color1);
+}
+
+.card-player-2 {
+    border-color: var(--color2);
+    color: var(--color2);
+}
+
+.card-player-3 {
+    border-color: var(--color3);
+    color: var(--color3);
+}
+
+.card-player-4 {
+    border-color: var(--color4);
+    color: var(--color4);
+}
+
+.card-hidden {
+    background-color: #ccc;
+}

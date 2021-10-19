@@ -1,0 +1,33 @@
+.GameLoop {
+    margin: auto;
+    width: 900px;
+    height: 100%;
+}
+
+.GameTitle {
+    font-size: 40px;
+}
+
+.hand,
+.board {
+    display: flex;
+    flex-direction: row;
+    width: calc(var(--card-width) * 7 + 50px);
+    height: var(--card-height);
+    margin-bottom: 5px;
+    /*border: 1px solid black;*/
+}
+
+.hand > .card,
+.board > .card {
+    margin-right: 7px;
+}
+
+.player {
+    /*height: calc(var(--card-height) * 2 + 10px);*/
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 1;
+    flex-grow: 1;
+    max-width: 400px;
+}
