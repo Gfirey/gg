@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {IBoard} from '../interface/Card';
+import {IBoard} from '../interface/Game';
 import Player from "./Player";
 
 class Board extends Component<IBoard> {
@@ -7,7 +7,9 @@ class Board extends Component<IBoard> {
         return (
             <div className='playground'>
                 {this.props.players.map((player) =>
-                    <Player key={player.id} id={player.id} cards={player.cards}/>
+                    <Player key={player.id} id={player.id} cards={player.cards}
+                            moveCardFn={this.props.moveCardFn}
+                    />
                 )}
             </div>
         )

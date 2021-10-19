@@ -1,6 +1,6 @@
 import React from 'react';
 import './GameLoop.css';
-import {IBrain, IModel, IPlayer} from './interface/Card';
+import {IBrain, IModel} from './interface/Game';
 import Board from './View/Board';
 import Brain from './Model/Brain';
 
@@ -29,13 +29,26 @@ class GameLoop extends React.Component<GameLoopProps, GameLoopState> {
         });
     };
 
+    moveCard = (cardId: number): boolean => {
+        const response = this.brain.moveCard(cardId);
+        if (response) {
+            this.setState({
+                model: this.brain.getCurrentModel()
+            });
+        }
+        return response
+    }
+
     render() {
         return (
             <div className="GameLoop">
                 <p className="GameTitle">&lt;GameTitle&gt;</p>
                 {!this.state.isInGame
                     ? <button onClick={this.startGame}>Начать игру</button>
-                    : <div><Board players={this.state.model.players}/></div>
+                    : <Board
+                        players={this.state.model.players}
+                        moveCardFn={this.moveCard}
+                    />
                 }
             </div>
         );

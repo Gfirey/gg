@@ -3,7 +3,7 @@
     width: var(--card-width);
     box-sizing: border-box;
     border: 4px solid;
-
+    word-break: break-word;
 }
 
 .card-player-1 {

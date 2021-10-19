@@ -1,39 +1,48 @@
+type IMoveCardFn = (cardId: number) => boolean;
+
 interface ICard {
     id: number;
     ownerId: number;
     type: number;
+    name: string;
+    rules: string;
     playerId: number;
     isHidden?: boolean;
     inHand?: boolean;
+    moveCardFn: IMoveCardFn;
 }
 
 interface IPlayer {
     id: number;
     cards: ICard[];
     isHidden?: boolean;
+    moveCardFn: IMoveCardFn;
 }
 
 interface IBoard {
     players: IPlayer[];
+    moveCardFn: IMoveCardFn;
 }
 
 interface IModel {
     players: IPlayer[];
-    usedCard: ICard[];
+    cardsInHands: ICard[];
+    deck: ICard[];
 }
 
 interface IBrain {
     getCurrentModel: () => IModel;
+    moveCard: IMoveCardFn;
 }
 
 interface ICardType {
     type: number;
+    rules: string;
+    name: string;
     img?: string;
 }
 
-interface ICardTypes {
-    [key: string]: ICardType
-}
+type ICardTypes = ICardType[];
 
 export type {
     ICard,
