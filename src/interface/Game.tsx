@@ -21,6 +21,7 @@ interface IPlayer {
 
 interface IBoard {
     players: IPlayer[];
+    playerId: number;
     moveCardFn: IMoveCardFn;
 }
 
@@ -28,6 +29,7 @@ interface IModel {
     players: IPlayer[];
     cardsInHands: ICard[];
     deck: ICard[];
+    nextPlayer: number;
 }
 
 interface IBrain {

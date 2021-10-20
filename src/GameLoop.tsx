@@ -7,8 +7,11 @@ import Brain from './Model/Brain';
 type GameLoopProps = {};
 type GameLoopState = {
     isInGame: boolean,
+    playerId: number,
     model: IModel;
 };
+
+const PLAYER_ID = 1;
 
 class GameLoop extends React.Component<GameLoopProps, GameLoopState> {
     private brain: IBrain;
@@ -18,6 +21,7 @@ class GameLoop extends React.Component<GameLoopProps, GameLoopState> {
         this.brain = new Brain();
         this.state = {
             isInGame: true,
+            playerId: PLAYER_ID,
             model: this.brain.getCurrentModel()
         }
     };
@@ -47,6 +51,7 @@ class GameLoop extends React.Component<GameLoopProps, GameLoopState> {
                     ? <button onClick={this.startGame}>Начать игру</button>
                     : <Board
                         players={this.state.model.players}
+                        playerId={this.state.playerId}
                         moveCardFn={this.moveCard}
                     />
                 }

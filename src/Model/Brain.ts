@@ -8,7 +8,8 @@ class Brain implements IBrain {
         this.model = {
             players: [],
             cardsInHands: [],
-            deck: []
+            deck: [],
+            nextPlayer: 1
         };
         this.generateModelData();
     }
@@ -22,6 +23,7 @@ class Brain implements IBrain {
         const res = this.isMoveAvailable(card);
         if (res) {
             card.inHand = false;
+            this.selectNextPlayerByCard(card);
         }
         return res;
     }
@@ -29,10 +31,10 @@ class Brain implements IBrain {
     generateModelData(): void {
         this.generateCards();
         this.generatePlayers();
+        this.selectNextPlayerRandom();
     };
 
     generateCards(): void {
-        this.model.cardsInHands = [];
         for (let i = 0; i < (PLAYERS_COUNT * MAX_CARD_IN_HAND); i++) {
             let index = this.getRandomCardIndex();
             while (this.isCardInUsed(index + 1)) {
@@ -55,16 +57,44 @@ class Brain implements IBrain {
     generatePlayers(): void {
         const players = PLAYERS.slice(0, PLAYERS_COUNT);
         this.model.players = players.map((player) => {
-            player.cards = this.model.cardsInHands?.filter((card) => card.playerId === (player.id - 1));
+            player.cards = this.model.cardsInHands?.filter((card) => card.playerId === (player.id));
             return player;
         });
     };
 
+    selectNextPlayerByCard({ownerId, playerId}: ICard): void {
+        if (ownerId) {
+            this.setNextPlayer(ownerId);
+        } else {
+            this.selectNextPlayerRandom();
+        }
+    }
+
+    selectNextPlayerRandom(): void {
+        let maxCards = MAX_CARD_IN_HAND;
+        let playersIds: number[] = [];
+        this.model.players.forEach((player) => {
+            if (player.cards.length && player.cards.length < maxCards) {
+                maxCards = player.cards.length;
+                playersIds = [player.id];
+            } else if (player.cards.length === maxCards) {
+                playersIds.push(player.id);
+            }
+        })
+        this.setNextPlayer(this.getRandomFromArray(playersIds));
+    }
+
+    setNextPlayer(id: number): void {
+        this.model.nextPlayer = id;
+        console.log('nextPlayer ' + id);
+    }
+
     isMoveAvailable(card: ICard): boolean {
-        return !this.getAllCardsByPlayerId(card.playerId)
-            .filter((playerCard) => !playerCard.inHand)
-            .filter((playerCard) => playerCard.id !== card.id)
-            .some((playerCards) => playerCards.type === card.type);
+        return card.playerId === this.model.nextPlayer &&
+            !this.getAllCardsByPlayerId(card.playerId)
+                .filter((playerCard) => !playerCard.inHand)
+                .filter((playerCard) => playerCard.id !== card.id)
+                .some((playerCards) => playerCards.type === card.type);
     }
 
     getCardById(id: number): ICard {
@@ -75,9 +105,14 @@ class Brain implements IBrain {
         return this.model.cardsInHands.filter((card) => card.playerId === id);
     }
 
-    getRandomCardIndex(): number {
-        return Math.floor(Math.random() * CARDS.length);
-    }
+    getRandomInt = (maxInt: number): number => Math.floor(Math.random() * maxInt);
+
+    getRandomCardIndex = (): number => this.getRandomInt(CARDS.length);
+
+    getRandomPlayerId = (): number => this.getRandomInt(PLAYERS_COUNT);
+
+    getRandomFromArray = (arr: number[]): number => arr[Math.floor(Math.random()*arr.length)];
+
 
     isCardInUsed(id: number): boolean {
         return this.model.cardsInHands?.some((card) => card.id === id);

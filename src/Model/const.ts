@@ -4,7 +4,7 @@ const MAX_CARD_IN_HAND = 6;
 const PLAYERS_COUNT = 4;
 
 const PLACEHOLDER_FIELDS = {
-    playerId: 0,
+    playerId: 4,
     name: '',
     rules: ''
 }
@@ -359,11 +359,11 @@ const CARDS: ICard[] = [
 ];
 
 const PLAYERS: IPlayer[] = [
+    {id: 0, cards: [], ...PLACEHOLDER_FNS},
     {id: 1, cards: [], ...PLACEHOLDER_FNS},
     {id: 2, cards: [], ...PLACEHOLDER_FNS},
     {id: 3, cards: [], ...PLACEHOLDER_FNS},
-    {id: 4, cards: [], ...PLACEHOLDER_FNS},
-    {id: 5, cards: [], ...PLACEHOLDER_FNS}
+    {id: 4, cards: [], ...PLACEHOLDER_FNS}
 ];
 
 export {
