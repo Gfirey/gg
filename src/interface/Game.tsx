@@ -30,6 +30,7 @@ interface IModel {
     cardsInHands: ICard[];
     deck: ICard[];
     nextPlayer: number;
+    loser?: number;
 }
 
 interface IBrain {

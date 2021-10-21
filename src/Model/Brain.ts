@@ -24,8 +24,18 @@ class Brain implements IBrain {
         if (res) {
             card.inHand = false;
             this.selectNextPlayerByCard(card);
+            this.checkIsLose();
         }
         return res;
+    }
+
+    checkIsLose(): void {
+        const isLose = !this.model.players[this.model.nextPlayer].cards
+            .filter((playerCard) => playerCard.inHand)
+            .some((card: ICard) => this.isMoveAvailable(card));
+        if (isLose) {
+            this.model.loser = this.model.nextPlayer;
+        }
     }
 
     generateModelData(): void {
@@ -63,7 +73,7 @@ class Brain implements IBrain {
     };
 
     selectNextPlayerByCard({ownerId, playerId}: ICard): void {
-        if (ownerId) {
+        if (ownerId < PLAYERS_COUNT) {
             this.setNextPlayer(ownerId);
         } else {
             this.selectNextPlayerRandom();
@@ -74,10 +84,11 @@ class Brain implements IBrain {
         let maxCards = MAX_CARD_IN_HAND;
         let playersIds: number[] = [];
         this.model.players.forEach((player) => {
-            if (player.cards.length && player.cards.length < maxCards) {
-                maxCards = player.cards.length;
+            const cardsInHandCount = player.cards.filter((playerCard) => playerCard.inHand).length;
+            if (cardsInHandCount < maxCards) {
+                maxCards = cardsInHandCount;
                 playersIds = [player.id];
-            } else if (player.cards.length === maxCards) {
+            } else if (cardsInHandCount === maxCards) {
                 playersIds.push(player.id);
             }
         })
@@ -86,7 +97,6 @@ class Brain implements IBrain {
 
     setNextPlayer(id: number): void {
         this.model.nextPlayer = id;
-        console.log('nextPlayer ' + id);
     }
 
     isMoveAvailable(card: ICard): boolean {

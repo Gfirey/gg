@@ -3,6 +3,7 @@ import './GameLoop.css';
 import {IBrain, IModel} from './interface/Game';
 import Board from './View/Board';
 import Brain from './Model/Brain';
+import GameState from './View/GameState';
 
 type GameLoopProps = {};
 type GameLoopState = {
@@ -47,6 +48,7 @@ class GameLoop extends React.Component<GameLoopProps, GameLoopState> {
         return (
             <div className="GameLoop">
                 <p className="GameTitle">&lt;GameTitle&gt;</p>
+                <GameState {...this.state.model}/>
                 {!this.state.isInGame
                     ? <button onClick={this.startGame}>Начать игру</button>
                     : <Board

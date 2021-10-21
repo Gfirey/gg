@@ -6,22 +6,22 @@
     word-break: break-word;
 }
 
-.card-player-1 {
+.card-owner-player-0 {
     border-color: var(--color1);
     color: var(--color1);
 }
 
-.card-player-2 {
+.card-owner-player-1 {
     border-color: var(--color2);
     color: var(--color2);
 }
 
-.card-player-3 {
+.card-owner-player-2 {
     border-color: var(--color3);
     color: var(--color3);
 }
 
-.card-player-4 {
+.card-owner-player-3 {
     border-color: var(--color4);
     color: var(--color4);
 }
@@ -30,18 +30,18 @@
     background-color: #ccc;
 }
 
-.player-color-1 {
+.player-color-0 {
     color: var(--color1);
 }
 
-.player-color-2 {
+.player-color-1 {
     color: var(--color2);
 }
 
-.player-color-3 {
+.player-color-2 {
     color: var(--color3);
 }
 
-.player-color-4 {
+.player-color-3 {
     color: var(--color4);
 }

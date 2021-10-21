@@ -1,40 +1,30 @@
 import React, {Component} from 'react';
 import Card from '../View/Card';
-import {IPlayer} from '../interface/Game';
+import {ICard, IPlayer} from '../interface/Game';
 
 class Player extends Component<IPlayer> {
+
+    cardRender(card: ICard) {
+        return <Card {...card}
+                     key={card.id}
+                     playerId={this.props.id}
+                     isHidden={this.props.isHidden}
+                     moveCardFn={this.props.moveCardFn}
+        />
+    }
+
     render() {
         return (
             <div className={'player player-position-' + this.props.id}>
-                <div className={'player-name player-color-' + this.props.id}>Name: {this.props.id}</div>
+                <div className={'player-name player-color-' + this.props.id}>Игрок: {this.props.id}</div>
                 <div className='board'>
                     {this.props.cards.filter((card) => !card.inHand).map((card) =>
-                        <Card id={card.id}
-                              key={card.id}
-                              type={card.type}
-                              name={card.name}
-                              rules={card.rules}
-                              ownerId={card.ownerId}
-                              inHand={card.inHand}
-                              playerId={this.props.id}
-                              isHidden={this.props.isHidden}
-                              moveCardFn={this.props.moveCardFn}
-                        />
+                        this.cardRender(card)
                     )}
                 </div>
                 <div className='hand'>
                     {this.props.cards.filter((card) => card.inHand).map((card) =>
-                        <Card id={card.id}
-                              key={card.id}
-                              type={card.type}
-                              name={card.name}
-                              rules={card.rules}
-                              ownerId={card.ownerId}
-                              inHand={card.inHand}
-                              playerId={this.props.id}
-                              isHidden={this.props.isHidden}
-                              moveCardFn={this.props.moveCardFn}
-                        />
+                        this.cardRender(card)
                     )}
                 </div>
             </div>
