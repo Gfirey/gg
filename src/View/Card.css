@@ -1,3 +1,47 @@
+@keyframes new-card-animation {
+    from {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+
+    to {
+        opacity: 1;
+        transform : translateY(0);
+    }
+}
+
+@keyframes remove-card-animation {
+    from {
+        opacity: 1;
+        transform : translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+}
+
+.card-onBoard {
+    opacity: 0;
+    animation: new-card-animation .3s linear forwards;
+}
+
+.animation-remove-card {
+    opacity: 1;
+    animation: remove-card-animation .3s linear forwards;
+}
+
+.card-exit {
+    opacity: 0;
+    transition: opacity 700ms ease-out;
+}
+
+.card-exit-active {
+    opacity: 0;
+    transition: opacity 700ms ease-out;
+}
+
 .card {
     height: var(--card-height);
     width: var(--card-width);
@@ -44,4 +88,22 @@
 
 .player-color-3 {
     color: var(--color4);
+}
+
+.alert-enter {
+    opacity: 0;
+    transform: scale(0.9);
+}
+.alert-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 300ms;
+}
+.alert-exit {
+    opacity: 1;
+}
+.alert-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 700ms, transform 300ms;
 }

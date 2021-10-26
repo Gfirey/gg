@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {IBoard} from '../interface/Game';
 import Player from "./Player";
+import PlayerWithAnimation from "./PlayerWithAnimation";
 
 class Board extends Component<IBoard> {
     render() {

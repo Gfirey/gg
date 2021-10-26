@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import './Card.css';
 import {ICard} from '../interface/Game';
 
